@@ -1,0 +1,203 @@
+@import "compass/css3/transform";
+@import "bootstrap/bootstrap";
+@import "lightbox/lightbox";
+@import "base";
+
+.main-header {
+    background: $darkBlack;
+    color: $lightWhite;
+
+    .main-title {
+        margin: 0 auto;
+        position: relative;
+
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.main-content {
+    background: $mediumWhite;
+    color: $darkBlue;
+
+    .pokemons {
+        margin: 20px auto;
+        line-height: 0;
+        font-size: 0;
+        padding-bottom: 20px;
+
+        .pokemon {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            margin: 10px 10px;
+            vertical-align: top;
+
+            img {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .upload-form {
+        margin: 20px auto;
+        padding-bottom: 20px;
+
+        #fileInput {
+            display: none;
+        }
+
+        #dropZone {
+            width: 70%;
+            min-width: 100px;
+            height: 200px;
+            margin: 0 auto;
+            background: $mediumBlue;
+            color: $lightWhite;
+            text-align: center;
+            display: table;
+            text-transform: uppercase;
+            cursor: pointer;
+
+            @include transition(background 0.2s ease);
+
+            &:hover {
+                background: lighten($mediumBlue, 5%);
+            }
+
+            &.dragover {
+                background: $darkBlue;
+            }
+
+            p {
+                display: table-cell;
+                vertical-align: middle;
+                font-size: 27px;
+                line-height: 21px;
+                position: relative;
+                cursor: pointer;
+
+                #dragSpan, #dragDropSpan, #clickSpan {
+                    display: inline-block;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    @include transition(width 0.2s ease);
+                }
+
+                .subtext {
+                    color: $lightBlue;
+                    font-size: 20px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .fileList {
+            margin-top: 50px;
+            text-align: left;
+            border: 1px solid $mediumBlue;
+
+            #uploadedFiles {
+                margin-top: 15px;
+
+                #nothingUploaded {
+                    text-align: center;
+                    font-size: 30px;
+                    opacity: 0.5;
+                    margin: 50px auto;
+                    cursor: default;
+                    pointer-events: none;
+                    @include transform(rotate(15deg));
+                }
+
+                & > div {
+                    padding: 10px 0;
+                    display: flex;
+                    justify-content: flex-start;
+
+                    figure {
+                        width: 210px;
+                        height: auto;
+                        display: block;
+                        background: $mediumBlue;
+                        color: $lightWhite;
+                        padding: 5px;
+
+                        &:first-of-type {
+                            margin-right: 5px;
+                        }
+
+                        figcaption {
+                            text-align: center;
+                            text-transform: uppercase;
+                        }
+                    }
+
+                    .uploaded-informations {
+                        display: block;
+                        flex-grow: 1;
+                        margin-left: 20px;
+                        background-color: $darkBlue;
+
+                        & > div {
+                            display: table;
+                            width: 100%;
+                            height: 100%;
+
+                            & > div {
+                                display: table-cell;
+                                vertical-align: middle;
+                                text-align: center;
+
+                                p {
+                                    display: inline-block;
+                                    margin: 0 auto;
+                                    text-align: left;
+                                    line-height: 2em;
+                                    color: $lightWhite;
+                                    font-size: 15px;
+
+                                    span {
+                                        font-weight: bold;
+                                        text-transform: uppercase;
+                                        width: 200px;
+                                        display: inline-block;
+                                        color: $lightBlue;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .submit-button {
+            text-align: center;
+            margin-top: 20px;
+
+            #submitButton {
+                display: none;
+            }
+        }
+    }
+}
+
+.main-footer {
+    background: $darkBlack;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 9px;
+    color: $lightWhite;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}

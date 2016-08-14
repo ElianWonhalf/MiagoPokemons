@@ -1,0 +1,6 @@
+.idea
+*.iml
+database.php
+.sass-cache
+css
+.htpasswd

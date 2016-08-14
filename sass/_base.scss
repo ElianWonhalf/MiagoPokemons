@@ -1,0 +1,68 @@
+$darkBlue: #042533;
+$darkBlack: #333333;
+
+$mediumBlue: #155E8D;
+$mediumWhite: #ECFAFB;
+
+$lightBlue: #8BD8F5;
+$lightWhite: #FEFEFE;
+
+@mixin roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: $darkBlue;
+    text-align: center;
+    @include roboto;
+}
+
+h2, h3, h4, h5, h6 {
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0;
+
+    & + & {
+        margin-top: 0;
+    }
+}
+
+h2 {
+    color: $darkBlue;
+}
+
+h3 {
+    color: $mediumBlue;
+}
+
+pre {
+    text-align: left;
+}
+
+img {
+    max-width: 100%;
+}
+
+.hiddenButStillHereSomewhere {
+    visibility: hidden;
+    position: absolute;
+    left: -4000%;
+    top: -4000%;
+}
+
+.btn-success, .btn-success[disabled] {
+    &:hover {
+        background: darken($mediumBlue, 5%);
+        border: 1px solid darken($mediumBlue, 6.5%);
+    }
+
+    &:focus:active, &:hover:active, &:focus:hover:active, &:active {
+        background: darken($mediumBlue, 10%);
+        border: 1px solid darken($mediumBlue, 11.5%);
+    }
+
+    &, &:focus, &[disabled]:hover, &[disabled]:active, &[disabled]:focus {
+        background: $mediumBlue;
+        border: 1px solid darken($mediumBlue, 1.5%);
+    }
+}
