@@ -22,7 +22,7 @@
 </head>
 <body>
 <header class="main-header">
-    <h1 class="main-title">
+    <h1 class="main-title container">
         <a href="https://twitter.com/MiagoMeowsome" target="_blank">
             <?php
             if ($bAdmin) {

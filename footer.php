@@ -1,7 +1,7 @@
     </section>
-    <footer class="main-footer">
+    <footer class="main-footer container">
         <p>
-            Miago Pokemons&copy; 2016 - All rights reserved.
+            Design & graphical content (including drawings) by <a href="https://twitter.com/MiagoMeowsome" target="_blank">Miago</a> - Website by <a href="https://github.com/ElianWonhalf" target="_blank">Elian Wonhalf</a> - All rights reserved.
         </p>
     </footer>
 

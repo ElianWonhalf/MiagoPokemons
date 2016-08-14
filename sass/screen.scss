@@ -4,12 +4,12 @@
 @import "base";
 
 .main-header {
-    background: $darkBlack;
     color: $lightWhite;
 
     .main-title {
         margin: 0 auto;
         position: relative;
+        padding: 0;
 
         img {
             width: 100%;
@@ -193,8 +193,12 @@
     color: $lightWhite;
     position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    @include transform(translateX(-50%));
+
+    @media (max-width: 767px) {
+        width: 100%;
+    }
 
     p {
         margin: 0;
