@@ -1,4 +1,5 @@
 <?php
+
 $sDsn = 'mysql:dbname=database_name;host=database_host';
 $sUser = 'user';
 $sPassword = 'password';

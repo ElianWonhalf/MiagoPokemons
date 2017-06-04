@@ -6,6 +6,7 @@
     </footer>
 
     <?php
+
     if ($bAdmin) {
         echo '
             <script type="text/javascript" src="../js/functions.js"></script>
@@ -18,6 +19,7 @@
             <script type="text/javascript" src="js/main.js"></script>
         ';
     }
+
     ?>
 </body>
 </html>

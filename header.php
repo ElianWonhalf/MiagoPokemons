@@ -1,4 +1,9 @@
-<?php require_once('database.php'); ?>
+<?php
+
+require_once('database.php');
+require_once('functions.php');
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,30 +14,32 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic,300,300italic' rel='stylesheet' type='text/css'>
 
     <?php
-        $sRootDir = __DIR__;
-        $sRootUri = '';
 
-        if ($bAdmin) {
-            $sRootDir = dirname(__DIR__);
-            $sRootUri = '../';
-        }
+    $sRootDir = __DIR__;
+    $sRootUri = '';
 
-        $sLinkTag = '<link rel="stylesheet" type="text/css" href="' . $sRootUri . 'css/screen.css" />';
-        $sBackgroundsFolder = $sRootDir . '/img/design/backgrounds';
+    if ($bAdmin) {
+        $sRootDir = dirname(__DIR__);
+        $sRootUri = '../';
+    }
 
-        $rDirectory = opendir($sBackgroundsFolder);
-        $aFiles = array();
+    $sLinkTag = '<link rel="stylesheet" type="text/css" href="' . $sRootUri . 'css/screen.css" />';
+    $sBackgroundsFolder = $sRootDir . '/img/design/backgrounds';
 
-        while ($sFile = readdir($rDirectory)) {
-            $aFiles[] = $sFile;
-        }
+    $rDirectory = opendir($sBackgroundsFolder);
+    $aFiles = array();
 
-        closedir($rDirectory);
+    while ($sFile = readdir($rDirectory)) {
+        $aFiles[] = $sFile;
+    }
 
-        $iRand = array_rand($aFiles);
-        $sBackgroundUrl = $sRootUri . 'img/design/backgrounds/' . $aFiles[$iRand];
+    closedir($rDirectory);
 
-        echo $sLinkTag;
+    $iRand = array_rand($aFiles);
+    $sBackgroundUrl = $sRootUri . 'img/design/backgrounds/' . $aFiles[$iRand];
+
+    echo $sLinkTag;
+
     ?>
 
     <!--[if lt IE 9]>

@@ -1,6 +1,8 @@
 <?php
+
 $bAdmin = true;
 require_once('../header.php');
+
 ?>
 <div class="upload-form">
     <input type="file" name="images" id="fileInput" multiple="multiple" datatype="image/*" />
