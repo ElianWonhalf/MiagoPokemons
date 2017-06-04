@@ -30,7 +30,9 @@ require_once('functions.php');
     $aFiles = array();
 
     while ($sFile = readdir($rDirectory)) {
-        $aFiles[] = $sFile;
+        if (!in_array($sFile, array('.', '..'))) {
+            $aFiles[] = $sFile;
+        }
     }
 
     closedir($rDirectory);
