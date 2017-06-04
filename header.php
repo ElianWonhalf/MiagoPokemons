@@ -19,16 +19,26 @@
     <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" type="text/javascript"></script>
     <![endif]-->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-93095255-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 </head>
 <body>
 <header class="main-header">
     <h1 class="main-title container">
-        <a href="https://twitter.com/MiagoMeowsome" target="_blank">
+        <a href="https://twitter.com/MiagoArts" target="_blank">
             <?php
             if ($bAdmin) {
-                echo '<img src="../img/design/header.jpg" alt="Miago Arts" />';
+                echo '<img src="../img/design/header.png" alt="Miago Arts" />';
             } else {
-                echo '<img src="img/design/header.jpg" alt="Miago Arts" />';
+                echo '<img src="img/design/header.png" alt="Miago Arts" />';
             }
             ?>
         </a>
@@ -40,6 +50,6 @@
             Someone asked me if I could...
         </h2>
         <h3>
-            ... Draw all the Pokemons
+            ... Draw all the Pokemon
         </h3>
     </header>

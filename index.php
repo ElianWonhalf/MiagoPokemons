@@ -44,7 +44,7 @@ require_once('header.php');
 
                 echo '<img src="' . $sFilePath . '@thumb' . $sThumbExtension . '" data-jslghtbx="' . $sFilePath . $sHdExtension . '" data-jslghtbx-group="pokemons" alt="' . $sName . '" />';
             } else {
-                echo 'background-image: url(\'img/pokemons/vanilla/' . $iSpriteIndex . '.jpg\'); background-position: 0 -' . $iSpriteOffset . 'px;">';
+                echo 'background-image: url(\'img/pokemons/vanilla/' . $iSpriteIndex . '.png\'); background-position: 0 -' . $iSpriteOffset . 'px;">';
             }
 
             echo '</div>';
