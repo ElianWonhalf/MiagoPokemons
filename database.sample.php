@@ -1,6 +1,6 @@
 <?php
 
-$sDsn = 'mysql:dbname=database_name;host=database_host';
+$sDsn = 'mysql:dbname=database_name;host=database_host;charset=utf8';
 $sUser = 'user';
 $sPassword = 'password';
 $bConnected = false;

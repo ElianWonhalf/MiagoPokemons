@@ -5,6 +5,25 @@
  * @param int $iPage
  * @return string
  */
+function getHowManyPokemons(PDO $oDbh)
+{
+    $sSql = 'SELECT COUNT(*) FROM `pokemon` WHERE `active`=:active ORDER BY `position`';
+    $oSth = $oDbh->prepare($sSql);
+
+    $oSth->execute(
+        array(
+            'active' => 1,
+        )
+    );
+
+    return $oSth->fetchColumn(0);
+}
+
+/**
+ * @param PDO $oDbh
+ * @param int $iPage
+ * @return string
+ */
 function getPokemonsHTML(PDO $oDbh, int $iPage)
 {
     $sHTML = '';

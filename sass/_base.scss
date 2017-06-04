@@ -1,3 +1,5 @@
+@import "compass/css3/animation";
+
 $darkBlue: #042533;
 $darkBlack: #333333;
 
@@ -9,6 +11,15 @@ $lightWhite: #FEFEFE;
 
 @mixin roboto {
     font-family: 'Roboto', sans-serif;
+}
+
+@include keyframes(loadingAnimation) {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 body {
