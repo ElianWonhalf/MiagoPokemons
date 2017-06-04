@@ -11,8 +11,22 @@
         position: relative;
         padding: 0;
 
-        img {
+        #header-background {
             width: 100%;
+        }
+
+        #header-twitch, #header-twitter {
+            width: 50%;
+            position: absolute;
+            right: 3%;
+        }
+
+        #header-twitch {
+            top: 12%;
+        }
+
+        #header-twitter {
+            bottom: 12%;
         }
     }
 }

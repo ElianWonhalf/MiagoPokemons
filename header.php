@@ -9,11 +9,30 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic,300,300italic' rel='stylesheet' type='text/css'>
 
     <?php
-    if ($bAdmin) {
-        echo '<link rel="stylesheet" type="text/css" href="../css/screen.css" />';
-    } else {
-        echo '<link rel="stylesheet" type="text/css" href="css/screen.css" />';
-    }
+        $sRootDir = __DIR__;
+        $sRootUri = '';
+
+        if ($bAdmin) {
+            $sRootDir = dirname(__DIR__);
+            $sRootUri = '../';
+        }
+
+        $sLinkTag = '<link rel="stylesheet" type="text/css" href="' . $sRootUri . 'css/screen.css" />';
+        $sBackgroundsFolder = $sRootDir . '/img/design/backgrounds';
+
+        $rDirectory = opendir($sBackgroundsFolder);
+        $aFiles = array();
+
+        while ($sFile = readdir($rDirectory)) {
+            $aFiles[] = $sFile;
+        }
+
+        closedir($rDirectory);
+
+        $iRand = array_rand($aFiles);
+        $sBackgroundUrl = $sRootUri . 'img/design/backgrounds/' . $aFiles[$iRand];
+
+        echo $sLinkTag;
     ?>
 
     <!--[if lt IE 9]>
@@ -30,17 +49,19 @@
         ga('send', 'pageview');
     </script>
 </head>
-<body>
+<body style="background-image: url('<?php echo $sBackgroundUrl; ?>');">
 <header class="main-header">
     <h1 class="main-title container">
         <a href="https://twitter.com/MiagoArts" target="_blank">
-            <?php
-            if ($bAdmin) {
-                echo '<img src="../img/design/header.png" alt="Miago Arts" />';
-            } else {
-                echo '<img src="img/design/header.png" alt="Miago Arts" />';
-            }
-            ?>
+            <img src="<?php echo $sRootUri; ?>img/design/header.png" alt="Miago Arts" id="header-background" />
+
+            <a href="https://twitch.tv/doctormiawoo" id="header-twitch" target="_blank">
+                <img src="<?php echo $sRootUri; ?>img/design/header_twitch.png" alt="Miago Arts on Twitch" />
+            </a>
+
+            <a href="https://twitter.com/MiagoArts" id="header-twitter" target="_blank">
+                <img src="<?php echo $sRootUri; ?>img/design/header_twitter.png" alt="Miago Arts on Twitter" />
+            </a>
         </a>
     </h1>
 </header>

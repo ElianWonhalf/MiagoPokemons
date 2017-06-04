@@ -4,3 +4,5 @@ database.php
 .sass-cache
 css
 .htpasswd
+img/pokemons/drawn/*
+!img/pokemons/drawn/.keep
