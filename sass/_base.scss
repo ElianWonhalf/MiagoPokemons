@@ -23,7 +23,7 @@ $lightWhite: #FEFEFE;
 }
 
 body {
-    background: $darkBlue fixed center;
+    background: url('../background.php') $darkBlue fixed center;
     background-size: cover;
     text-align: center;
     @include roboto;

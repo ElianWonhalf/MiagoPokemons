@@ -23,26 +23,9 @@ require_once('functions.php');
         $sRootUri = '../';
     }
 
-    $sLinkTag = '<link rel="stylesheet" type="text/css" href="' . $sRootUri . 'css/screen.css" />';
-    $sBackgroundsFolder = $sRootDir . '/img/design/backgrounds';
-
-    $rDirectory = opendir($sBackgroundsFolder);
-    $aFiles = array();
-
-    while ($sFile = readdir($rDirectory)) {
-        if (!in_array($sFile, array('.', '..'))) {
-            $aFiles[] = $sFile;
-        }
-    }
-
-    closedir($rDirectory);
-
-    $iRand = array_rand($aFiles);
-    $sBackgroundUrl = $sRootUri . 'img/design/backgrounds/' . $aFiles[$iRand];
-
-    echo $sLinkTag;
-
     ?>
+
+    <link rel="stylesheet" type="text/css" href="<?php echo $sRootUri; ?>css/screen.css" />
 
     <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" type="text/javascript"></script>
@@ -58,7 +41,7 @@ require_once('functions.php');
         ga('send', 'pageview');
     </script>
 </head>
-<body style="background-image: url('<?php echo $sBackgroundUrl; ?>');">
+<body>
 <header class="main-header">
     <h1 class="main-title container">
         <a href="https://twitter.com/MiagoArts" target="_blank">
