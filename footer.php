@@ -14,7 +14,7 @@
         ';
     } else {
         echo '
-            <script type="text/javascript" src="js/lightbox.min.js"></script>
+            <script type="text/javascript" src="js/lightbox.js"></script>
             <script type="text/javascript" src="js/functions.js"></script>
             <script type="text/javascript" src="js/main.js"></script>
         ';
