@@ -104,8 +104,8 @@ addListener(document, 'DOMContentLoaded', function (event) {
 
     function handleFiles(files) {
         for (var i = 0, file; file = files[i]; i++) {
-            if (file.type.match(/image.*/) && file.name.match(/^\d+(@thumb)?\.(png|jpg)/)) {
-                var matches = file.name.match(/^(\d+)(@thumb)?\.(png|jpg)/);
+            if (file.type.match(/image.*/) && file.name.match(/^\d+@(2x|thumb)\.(png|jpg)/)) {
+                var matches = file.name.match(/^(\d+)@(2x|thumb)\.(png|jpg)/);
 
                 if (!uploadedPictures.hasOwnProperty(matches[1])) {
                     uploadedPictures[matches[1]] = {
@@ -120,7 +120,7 @@ addListener(document, 'DOMContentLoaded', function (event) {
                     };
                 }
 
-                if (typeof matches[2] != 'undefined') {
+                if (matches[2] == 'thumb') {
                     uploadedPictures[matches[1]]['thumb'] = {
                         file: file,
                         displayed: false
