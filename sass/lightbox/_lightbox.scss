@@ -179,12 +179,15 @@ $darkblue: #3F658B;
     font-size: 2em;
     color: $def-color-1;
     cursor: pointer;
+
     @include prefixr(transition, all .3s ease-in-out);
+
     &:hover {
         text-shadow: 0 0 10px #fff;
     }
+
     @media screen and(max-width: 1060px) {
-        font-size: 1.5em;
+        font-size: 5vw;
     }
 }
 
@@ -214,9 +217,9 @@ $darkblue: #3F658B;
     @media screen and(min-width: 451px) {
         right: 2.6em;
         &.jslghtbx-no-img {
-            border-top: 110px solid transparent;
-            border-bottom: 110px solid transparent;
-            border-left: 110px solid #FFF;
+            border-top: 60px solid transparent;
+            border-bottom: 60px solid transparent;
+            border-left: 60px solid #FFF;
         }
     }
     @media screen and(max-width: 600px) {
@@ -242,9 +245,9 @@ $darkblue: #3F658B;
     @media screen and(min-width: 451px) {
         left: 2.6em;
         &.jslghtbx-no-img {
-            border-top: 110px solid transparent;
-            border-bottom: 110px solid transparent;
-            border-right: 110px solid #FFF;
+            border-top: 60px solid transparent;
+            border-bottom: 60px solid transparent;
+            border-right: 60px solid #FFF;
         }
     }
     @media screen and(max-width: 600px) {

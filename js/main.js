@@ -8,7 +8,9 @@ addListener(document, 'DOMContentLoaded', function (event) {
     var lastVariantsPositionLoaded = null;
     var lightbox = new Lightbox();
     lightbox.load({
-        onload: imageLoaded
+        onload: imageLoaded,
+        onopen: imageLoading,
+        onclose: imageLoading
     });
 
     var lightboxSubGallery = document.createElement('div'),
@@ -63,6 +65,10 @@ addListener(document, 'DOMContentLoaded', function (event) {
                 loader.style.display = 'none';
             }
         }
+    }
+
+    function imageLoading () {
+        lightboxSubGallery.innerHTML = '<img src="img/design/loading-white.svg" alt="Loading..." class="loading-animation" />';
     }
 
     function imageLoaded () {
