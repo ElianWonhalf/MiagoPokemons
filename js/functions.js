@@ -72,4 +72,17 @@ function send(url, method, parameters, callback, formData) {
             xhr.send(parameters);
         }
     }
+
+    return xhr;
+}
+
+function getPokemonVariants() {
+    return [
+        'alola',
+        'extra',
+        'female',
+        'male',
+        'mega',
+        'shiny'
+    ];
 }

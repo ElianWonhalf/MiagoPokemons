@@ -23,7 +23,7 @@ if ($bConnected) {
         switch (getValue('action')) {
             case 'getPokemonByPosition':
                 if (getValue('position') != null && intval(getValue('position')) > 0) {
-                    getPokemonByPosition((int) getValue('position'));
+                    getPokemonByPosition((int) getValue('position'), getValue('variant'));
                 } else {
                     $aReturn['message'] = 'Expected `position` variable, nothing or invalid value found';
                 }
@@ -46,8 +46,8 @@ function saveData() {
 
     foreach ($_FILES as $sKey => $aFile) {
         if ($aFile['error'] == UPLOAD_ERR_OK) {
-            $iPosition = str_replace('-thumb', '', str_replace('pokemon-', '', $sKey));
-            $aDrawnPokemons[$iPosition] = true;
+            $sIdentifier = str_replace('-thumb', '', str_replace('pokemon-', '', str_replace('-hd', '', $sKey)));
+            $aDrawnPokemons[$sIdentifier] = true;
             $sTempName = $aFile['tmp_name'];
             $sName = $aFile['name'];
 
@@ -63,12 +63,26 @@ function saveData() {
     }
 
     foreach (array_keys($aDrawnPokemons) as $sKey) {
-        $sSql = 'UPDATE `pokemon` SET `drawn`=:drawn, `drawn_date`=:drawn_date WHERE `position`=:position';
+        $aKey = explode('-', $sKey);
+        $iPosition = (int) array_shift($aKey);
+        $sVariant = 'none';
+
+        if (count($aKey) > 0) {
+            $sVariant = implode('-', $aKey);
+        }
+
+        $sSql = '
+            INSERT INTO `drawn_pokemon`
+            SELECT `id`, :variant, :drawn_date
+            FROM `pokemon`
+            WHERE `position` = :position
+            ON DUPLICATE KEY UPDATE `drawn_date` = :drawn_date
+        ';
         $oSth = $oDbh->prepare($sSql);
         $oSth->execute(array(
-            'drawn' => '1',
+            'variant' => $sVariant,
             'drawn_date' => date('Y-m-d'),
-            'position' => $sKey,
+            'position' => $iPosition,
         ));
     }
 
@@ -78,14 +92,34 @@ function saveData() {
     );
 }
 
-function getPokemonByPosition($iPosition) {
+function getPokemonByPosition($iPosition, $sVariant) {
     global $oDbh, $aReturn;
 
-    $sSql = 'SELECT * FROM `pokemon` WHERE `active`=:active AND `position`=:position';
+    $sRealVariant = null;
+
+    if ($sVariant == null || $sVariant == 'null') {
+        $sVariant = 'none';
+    } else {
+        $sRealVariant = $sVariant;
+    }
+
+    $sSql = '
+        SELECT p.`id`, p.`name`, p.`position`, IF(dp.`variant` IS NOT NULL, 1, 0) AS "drawn", dp.`variant`, dp.`drawn_date`, p.`active`
+
+        FROM `pokemon` p
+
+        LEFT JOIN `drawn_pokemon` dp
+        ON p.`id` = dp.`id_pokemon`
+        AND dp.`variant` = :variant
+
+        WHERE p.`active` = :active
+        AND p.`position` = :position
+    ';
     $oSth = $oDbh->prepare($sSql);
 
     $oSth->execute(
         array(
+            'variant' => $sVariant,
             'active' => 1,
             'position' => $iPosition,
         )
@@ -100,7 +134,8 @@ function getPokemonByPosition($iPosition) {
             'data' => array(
                 'id' => $aPokemon['id'],
                 'name' => $aPokemon['name'],
-                'position' => (int)$aPokemon['position'],
+                'variant' => $sRealVariant,
+                'position' => (int) $iPosition,
                 'drawn' => $aPokemon['drawn'] == '1',
                 'drawn_date' => $aPokemon['drawn_date'],
                 'active' => $aPokemon['active'] == '1',

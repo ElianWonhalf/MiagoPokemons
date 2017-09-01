@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 512 512" fill="#EDEFF4">
+    <style type="text/css">
+        #miago-logo-1, #miago-logo-2, #miago-logo-3 {
+            transform-origin: 50%;
+            transform: scale(0.9);
+            opacity: 0.7;
+            animation-name: miago-logo-part;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        #miago-logo-1 {
+            animation-delay: 0.2s;
+        }
+
+        #miago-logo-2 {
+            animation-delay: 0.1s;
+        }
+
+        #miago-logo-3 {
+        }
+
+        @keyframes miago-logo-part {
+            0% {
+                opcaity: 0.7;
+                transform: scale(0.9);
+            }
+
+            35% {
+                opcaity: 0.7;
+                transform: scale(0.9);
+            }
+
+            50% {
+                opcaity: 1;
+                transform: scale(1);
+            }
+
+            65% {
+                opcaity: 0.7;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opcaity: 0.7;
+                transform: scale(0.9);
+            }
+        }
+    </style>
+
+    <g id="miago-logo-1">
+        <path d="M46.2,46.2l419.7,419.7c6.6,6.6,17.8,1.9,17.8-7.4V38.8c0-5.8-4.7-10.4-10.4-10.4H53.5
+                 C44.2,28.3,39.6,39.6,46.2,46.2z M408.9,132.1l-29-29c-4.1-4.1-4.1-10.7,0-14.8l29-29c4.1-4.1,10.7-4.1,14.8,0l29,29
+                 c4.1,4.1,4.1,10.7,0,14.8l-29,29C419.6,136.2,413,136.2,408.9,132.1z" />
+    </g>
+
+    <g id="miago-logo-2">
+        <path d="M349.2,483.7h-79.7c-2.8,0-5.4-1.1-7.4-3.1L31.4,250c-2-2-3.1-4.6-3.1-7.4v-79.7c0-9.3,11.2-14,17.8-7.4 l310.4,310.4C363.1,472.4,358.5,483.7,349.2,483.7z" />
+    </g>
+
+    <path d="M132.1,423.7l-29,29c-4.1,4.1-10.7,4.1-14.8,0l-29-29c-4.1-4.1-4.1-10.7,0-14.8l29-29c4.1-4.1,10.7-4.1,14.8,0 l29,29C136.2,413,136.2,419.6,132.1,423.7z" id="miago-logo-3" />
+</svg>

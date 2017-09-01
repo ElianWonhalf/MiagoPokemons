@@ -57,12 +57,9 @@
     }
 
     #infinitescroll-loader {
-        width: 100%;
-        text-align: center;
-
-        img {
-            @include animation(loadingAnimation 2s infinite cubic-bezier(0.5, -0.5, 0.5, 1.5));
-        }
+        width: 20%;
+        max-width: 100px;
+        margin: auto;
     }
 
     .upload-form {
@@ -229,4 +226,55 @@
         margin: 0;
         padding: 0;
     }
+}
+
+#jslghtbx-subgallery {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    height: 20%;
+    left: 0;
+    width: 100%;
+    padding: .5% 0 .5% 0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.85);
+    overflow: auto;
+
+    &::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #484848;
+    }
+
+    &::-webkit-scrollbar
+    {
+        width: 6px;
+        background-color: #484848;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        background-color: #F5F5F5;
+    }
+
+    img:not(.loading-animation) {
+        cursor: pointer;
+        background: white;
+        max-height: 100%;
+        max-width: 105px;
+
+        &.active {
+            border: 2px solid $brand-primary;
+        }
+    }
+
+    .loading-animation {
+        height: 50%;
+        transform: translateY(50%);
+    }
+}
+
+#jslghtbx.jslghtbx-active + #jslghtbx-subgallery {
+    display: block;
 }

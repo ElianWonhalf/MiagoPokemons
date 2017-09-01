@@ -73,12 +73,12 @@ addListener(document, 'DOMContentLoaded', function (event) {
 
         data.append('action', 'saveData');
 
-        for (var position in uploadedPictures) {
-            if (uploadedPictures.hasOwnProperty(position)) {
-                var current = uploadedPictures[position];
+        for (var key in uploadedPictures) {
+            if (uploadedPictures.hasOwnProperty(key)) {
+                var current = uploadedPictures[key];
 
-                data.append('pokemon-' + position + '-thumb', current['thumb']['file'], current['thumb']['file'].name);
-                data.append('pokemon-' + position + '-hd', current['hd']['file'], current['hd']['file'].name);
+                data.append('pokemon-' + key + '-thumb', current['thumb']['file'], current['thumb']['file'].name);
+                data.append('pokemon-' + key + '-hd', current['hd']['file'], current['hd']['file'].name);
             }
         }
 
@@ -104,35 +104,46 @@ addListener(document, 'DOMContentLoaded', function (event) {
 
     function handleFiles(files) {
         for (var i = 0, file; file = files[i]; i++) {
-            if (file.type.match(/image.*/) && file.name.match(/^\d+@(2x|thumb)\.(png|jpg)/)) {
-                var matches = file.name.match(/^(\d+)@(2x|thumb)\.(png|jpg)/);
+            var filenameRegex = new RegExp('^\\d+(-[^@]+)?@(2x|thumb)\\.(png|jpg)');
+            var typeRegex = new RegExp('image.*');
 
-                if (!uploadedPictures.hasOwnProperty(matches[1])) {
-                    uploadedPictures[matches[1]] = {
-                        thumb: {
-                            file: null,
-                            displayed: false
-                        },
-                        hd: {
-                            file: null,
-                            displayed: false
-                        }
-                    };
+            if (typeRegex.test(file.type) && filenameRegex.test(file.name)) {
+                var matches = file.name.match(/^(\d+)(-[^@]+)?@(2x|thumb)\.(png|jpg)/);
+                var key = matches[1];
+                var valid = true;
+
+                if (typeof matches[2] != 'undefined') {
+                    key += matches[2];
                 }
 
-                if (matches[2] == 'thumb') {
-                    uploadedPictures[matches[1]]['thumb'] = {
-                        file: file,
-                        displayed: false
-                    };
-                } else {
-                    uploadedPictures[matches[1]]['hd'] = {
-                        file: file,
-                        displayed: false
-                    };
-                }
+                if (valid) {
+                    if (!uploadedPictures.hasOwnProperty(key)) {
+                        uploadedPictures[key] = {
+                            thumb: {
+                                file: null,
+                                displayed: false
+                            },
+                            hd: {
+                                file: null,
+                                displayed: false
+                            }
+                        };
+                    }
 
-                uploadedPictures[matches[1]]['displayed'] = false;
+                    if (matches[3] == 'thumb') {
+                        uploadedPictures[key]['thumb'] = {
+                            file: file,
+                            displayed: false
+                        };
+                    } else {
+                        uploadedPictures[key]['hd'] = {
+                            file: file,
+                            displayed: false
+                        };
+                    }
+
+                    uploadedPictures[key]['displayed'] = false;
+                }
             }
         }
 
@@ -142,14 +153,22 @@ addListener(document, 'DOMContentLoaded', function (event) {
     function displayNewPictures() {
         var everythingDisplayed = true;
 
-        for (var position in uploadedPictures) {
-            if (uploadedPictures.hasOwnProperty(position) && !uploadedPictures[position]['displayed']) {
-                var current = uploadedPictures[position];
+        for (var key in uploadedPictures) {
+            if (uploadedPictures.hasOwnProperty(key) && !uploadedPictures[key]['displayed']) {
+                var current = uploadedPictures[key];
 
                 nothingUploaded.style.display = 'none';
                 submitButton.style.display = 'inline';
 
-                if (document.getElementById('uploaded-' + position) == null) {
+                if (document.getElementById('uploaded-' + key) == null) {
+                    var position = key;
+                    var variant = null;
+
+                    if (position.indexOf('-') > -1) {
+                        position = key.substring(0, key.indexOf('-'));
+                        variant = key.substring(key.indexOf('-') + 1);
+                    }
+
                     var container = document.createElement('div');
 
                     var previewFigure = document.createElement('figure');
@@ -164,28 +183,29 @@ addListener(document, 'DOMContentLoaded', function (event) {
 
                     var informations = document.createElement('div');
 
-                    container.id = 'uploaded-' + position;
+                    container.id = 'uploaded-' + key;
 
                     previewFigcaption.innerText = 'Thumb';
-                    previewCanvas.id = 'uploaded-' + position + '-img-thumb';
+                    previewCanvas.id = 'uploaded-' + key + '-img-thumb';
                     previewCanvas.width = '200';
                     previewCanvas.height = '200';
                     previewCanvasContext.drawImage(missingPicture, 0, 0, 200, 200);
 
                     hdFigcaption.innerText = 'HD';
-                    hdCanvas.id = 'uploaded-' + position + '-img-hd';
+                    hdCanvas.id = 'uploaded-' + key + '-img-hd';
                     hdCanvas.width = '200';
                     hdCanvas.height = '200';
                     hdCanvasContext.drawImage(missingPicture, 0, 0, 200, 200);
 
                     informations.classList.add('uploaded-informations');
-                    informations.id = 'uploaded-' + position + '-informations';
+                    informations.id = 'uploaded-' + key + '-informations';
                     send(
                         'webservice.php',
                         'GET',
                         {
                             action: 'getPokemonByPosition',
-                            position: position
+                            position: position,
+                            variant: variant
                         },
                         ajaxCallback
                     );
@@ -206,7 +226,7 @@ addListener(document, 'DOMContentLoaded', function (event) {
                 if (current.hasOwnProperty('thumb') && current['thumb'] != null && !current['thumb']['displayed']) {
                     displayPicture(
                         current['thumb']['file'],
-                        document.getElementById('uploaded-' + position + '-img-thumb')
+                        document.getElementById('uploaded-' + key + '-img-thumb')
                     );
 
                     if (current['thumb']['file'] != null) {
@@ -217,7 +237,7 @@ addListener(document, 'DOMContentLoaded', function (event) {
                 if (current.hasOwnProperty('hd') && current['hd'] != null && !current['hd']['displayed']) {
                     displayPicture(
                         current['hd']['file'],
-                        document.getElementById('uploaded-' + position + '-img-hd')
+                        document.getElementById('uploaded-' + key + '-img-hd')
                     );
 
                     if (current['hd']['file'] != null) {
@@ -281,12 +301,21 @@ addListener(document, 'DOMContentLoaded', function (event) {
         if (!data.error) {
             data = data.data;
 
-            var container = document.getElementById('uploaded-' + data.position + '-informations');
+            var key = data.position;
+            var container;
             var containerDiv = document.createElement('div');
             var content = document.createElement('div');
             var paragraph = document.createElement('p');
+            var variant = 'n/d';
             var alreadyDrawnBefore = 'no';
             var drawnDate = 'n/d';
+
+            if (data.variant) {
+                variant = data.variant;
+                key += '-' + data.variant;
+            }
+
+            container = document.getElementById('uploaded-' + key + '-informations');
 
             if (data.drawn) {
                 alreadyDrawnBefore = 'yes';
@@ -299,6 +328,7 @@ addListener(document, 'DOMContentLoaded', function (event) {
 
             paragraph.innerHTML += '<span>Name: </span>' + data.name + '<br />';
             paragraph.innerHTML += '<span>Position: </span>' + data.position + '<br />';
+            paragraph.innerHTML += '<span>Variant: </span>' + variant + '<br />';
             paragraph.innerHTML += '<span>Already drawn before: </span>' + alreadyDrawnBefore + '<br />';
             paragraph.innerHTML += '<span>Drawn date: </span>' + drawnDate + '<br />';
 

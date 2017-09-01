@@ -18,6 +18,6 @@ require_once('header.php');
     ?>
 </div>
 <div id="infinitescroll-loader" style="display: none;">
-    <img src="img/design/loading.png" alt="Loading..." title="Loading..." />
+    <img src="img/design/loading-black.svg" alt="Loading..." title="Loading..." class="loading-animation" />
 </div>
 <?php require_once('footer.php'); ?>

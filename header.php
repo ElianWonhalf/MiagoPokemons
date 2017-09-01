@@ -44,7 +44,7 @@ require_once('functions.php');
 <body>
 <header class="main-header">
     <h1 class="main-title container">
-        <a href="https://twitter.com/MiagoArts" target="_blank">
+        <a href="/">
             <img src="<?php echo $sRootUri; ?>img/design/header.png" alt="Miago Arts" id="header-background" />
 
             <a href="https://twitch.tv/doctormiawoo" id="header-twitch" target="_blank">

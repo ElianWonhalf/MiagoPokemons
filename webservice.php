@@ -33,6 +33,20 @@ if ($bConnected) {
                 }
 
                 break;
+
+            case 'getVariants':
+                if (getValue('position') != null && intval(getValue('position')) > 0) {
+                    $aReturn = array(
+                        'error' => false,
+                        'variants' => getVariants($oDbh, (int) getValue('position')),
+                    );
+                } else {
+                    $aReturn['message'] = 'Expected `position` variable, nothing or invalid value found';
+                }
+            break;
+
+            default:
+                $aReturn['message'] = 'Unknown action';
         }
     } else {
         $aReturn['message'] = 'Expected `action` variable, nothing found';
