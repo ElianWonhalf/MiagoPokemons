@@ -1,7 +1,7 @@
 @import "compass/css3/animation";
 
 $darkBlue: #042533;
-$darkBlack: #333333;
+$darkBlack: #232323;
 
 $mediumBlue: #155E8D;
 $mediumWhite: #ECFAFB;
@@ -11,6 +11,61 @@ $lightWhite: #FEFEFE;
 
 @mixin roboto {
     font-family: 'Roboto', sans-serif;
+}
+
+@mixin pokemon-border {
+    box-shadow:  2px  0    0 $darkBlack,
+                 4px  0    0 $lightWhite,
+                 6px  0    0 $darkBlack,
+                 0    2px  0 $darkBlack,
+                 2px  2px  0 $lightWhite,
+                 4px  2px  0 $darkBlack,
+                 6px  2px  0 $lightWhite,
+                 0    4px  0 $lightWhite,
+                 2px  4px  0 $darkBlack,
+                 4px  4px  0 $lightWhite,
+                 6px  4px  0 $darkBlack,
+                 0    6px  0 $darkBlack,
+                 2px  6px  0 $lightWhite,
+                 4px  6px  0 $darkBlack,
+                 6px  6px  0 $lightWhite,
+
+                -2px  0    0 $darkBlack,
+                -4px  0    0 $lightWhite,
+                -6px  0    0 $darkBlack,
+                 0   -2px  0 $darkBlack,
+                -2px -2px  0 $lightWhite,
+                -4px -2px  0 $darkBlack,
+                -6px -2px  0 $lightWhite,
+                 0   -4px  0 $lightWhite,
+                -2px -4px  0 $darkBlack,
+                -4px -4px  0 $lightWhite,
+                -6px -4px  0 $darkBlack,
+                 0   -6px  0 $darkBlack,
+                -2px -6px  0 $lightWhite,
+                -4px -6px  0 $darkBlack,
+                -6px -6px  0 $lightWhite,
+
+                 2px -2px  0 $lightWhite,
+                 4px -2px  0 $darkBlack,
+                 6px -2px  0 $lightWhite,
+                -2px  2px  0 $lightWhite,
+                -4px  2px  0 $darkBlack,
+                -6px  2px  0 $lightWhite,
+
+                 2px -4px  0 $darkBlack,
+                 4px -4px  0 $lightWhite,
+                 6px -4px  0 $darkBlack,
+                -2px  4px  0 $darkBlack,
+                -4px  4px  0 $lightWhite,
+                -6px  4px  0 $darkBlack,
+
+                 2px -6px  0 $lightWhite,
+                 4px -6px  0 $darkBlack,
+                 6px -6px  0 $lightWhite,
+                -2px  6px  0 $lightWhite,
+                -4px  6px  0 $darkBlack,
+                -6px  6px  0 $lightWhite;
 }
 
 @include keyframes(loadingAnimation) {

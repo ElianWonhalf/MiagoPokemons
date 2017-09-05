@@ -1,4 +1,7 @@
-addListener(document, 'DOMContentLoaded', function (event) {
+addListener(document, 'DOMContentLoaded', function () {
+    var langEN = document.getElementById('lang-en');
+    var langFR = document.getElementById('lang-fr');
+    var langSwitch = document.getElementById('lang-switch');
     var pokemonsContainer = document.getElementById('pokemons');
     var loader = document.getElementById('infinitescroll-loader');
     var scrollLoading = false;
@@ -13,16 +16,60 @@ addListener(document, 'DOMContentLoaded', function (event) {
         onclose: imageLoading
     });
 
-    var lightboxSubGallery = document.createElement('div'),
+    var lightboxTitle = document.createElement('div'),
+        shadow = document.createElement('div'),
+        lightboxSubGallery = document.createElement('div'),
         lightboxSubGalleryXHR = null,
         lightboxContainer = lightbox.box,
         startX,
         startY,
         threshold = 150;
 
+    lightboxTitle.id = 'jslghtbx-title';
+    shadow.id = 'shadow';
     lightboxSubGallery.id = 'jslghtbx-subgallery';
 
+    document.body.appendChild(lightboxTitle);
+    document.body.appendChild(shadow);
     document.body.appendChild(lightboxSubGallery);
+
+    if (getCookie('lang') == 'fr' || (getCookie('lang') == null && (navigator.language || navigator.userLanguage) == 'fr')) {
+        langEN.checked = false;
+        langFR.checked = true;
+
+        langChanged();
+    }
+
+    function changeLang() {
+        if (langEN.checked) {
+            langEN.checked = false;
+            langFR.checked = true;
+        } else {
+            langEN.checked = true;
+            langFR.checked = false;
+        }
+
+        langChanged();
+    }
+
+    function langChanged() {
+        var containers = document.getElementsByClassName('pokemon');
+        var lang = 'en';
+
+        if (langFR.checked) {
+            lang = 'fr';
+        }
+
+        setCookie('lang', lang, 365);
+
+        for (var i = 0; i < containers.length; i++) {
+            var image = containers[i].getElementsByTagName('img')[0];
+            var name = containers[i].getAttribute('data-name-' + lang);
+
+            containers[i].title = name;
+            image.alt = name;
+        }
+    }
 
     function lightboxContainerSwipeHandler(isRightSwipe) {
         if (isRightSwipe) {
@@ -51,6 +98,8 @@ addListener(document, 'DOMContentLoaded', function (event) {
                             onload: imageLoaded
                         });
 
+                        document.body.appendChild(lightboxTitle);
+                        document.body.appendChild(shadow);
                         document.body.appendChild(lightboxSubGallery);
 
                         scrollLoading = false;
@@ -67,17 +116,20 @@ addListener(document, 'DOMContentLoaded', function (event) {
         }
     }
 
-    function imageLoading () {
+    function imageLoading() {
         lightboxSubGallery.innerHTML = '<img src="img/design/loading-white.svg" alt="Loading..." class="loading-animation" />';
+        lightboxTitle.innerHTML = '';
     }
 
-    function imageLoaded () {
+    function imageLoaded() {
         var lightboxImg = lightbox.box.getElementsByTagName('img')[0];
         var currentSrc = lightboxImg.getAttribute('src');
         var currentThumbElement = document.querySelector('[data-jslghtbx="' + currentSrc + '"]');
 
         if (currentThumbElement != null) {
             var position = currentThumbElement.getAttribute('data-pokemon-position');
+
+            lightboxTitle.innerHTML = '<h2>' + currentThumbElement.parentElement.getAttribute('title') + '</h2>';
 
             if (lastVariantsPositionLoaded != position) {
                 lastVariantsPositionLoaded = position;
@@ -123,7 +175,7 @@ addListener(document, 'DOMContentLoaded', function (event) {
         }
     }
 
-    function handleVariants (data, currentThumbElement, currentSrc, position, lightboxImg) {
+    function handleVariants(data, currentThumbElement, currentSrc, position, lightboxImg) {
         var variants = data.variants;
         var sources = [[currentThumbElement.src, currentSrc, 'none']];
         var images = [];
@@ -222,6 +274,21 @@ addListener(document, 'DOMContentLoaded', function (event) {
         }
     });
 
+    lightboxTitle.addEventListener('click', function (e) {
+        if (e.target == e.currentTarget) {
+            lightbox.close();
+        }
+    });
+
+    shadow.addEventListener('click', function (e) {
+        if (e.target == e.currentTarget) {
+            lightbox.close();
+        }
+    });
+
     document.addEventListener('scroll', documentScrolledHandler);
+    langEN.addEventListener('change', langChanged);
+    langFR.addEventListener('change', langChanged);
+    langSwitch.addEventListener('click', changeLang);
     documentScrolledHandler();
 });

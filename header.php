@@ -17,6 +17,7 @@ require_once('functions.php');
 
     $sRootDir = __DIR__;
     $sRootUri = '';
+    $sCacheId = '2.1';
 
     if ($bAdmin) {
         $sRootDir = dirname(__DIR__);
@@ -25,7 +26,8 @@ require_once('functions.php');
 
     ?>
 
-    <link rel="stylesheet" type="text/css" href="<?php echo $sRootUri; ?>css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Work+Sans" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $sRootUri; ?>css/screen.css?cacheid=<?php echo $sCacheId; ?>" />
 
     <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" type="text/javascript"></script>
@@ -45,14 +47,14 @@ require_once('functions.php');
 <header class="main-header">
     <h1 class="main-title container">
         <a href="/">
-            <img src="<?php echo $sRootUri; ?>img/design/header.png" alt="Miago Arts" id="header-background" />
+            <img src="<?php echo $sRootUri; ?>img/design/header.png?cacheid=<?php echo $sCacheId; ?>" alt="Miago Arts" id="header-background" />
 
             <a href="https://twitch.tv/doctormiawoo" id="header-twitch" target="_blank">
-                <img src="<?php echo $sRootUri; ?>img/design/header_twitch.png" alt="Miago Arts on Twitch" />
+                <img src="<?php echo $sRootUri; ?>img/design/header_twitch.png?cacheid=<?php echo $sCacheId; ?>" alt="Miago Arts on Twitch" />
             </a>
 
             <a href="https://twitter.com/MiagoArts" id="header-twitter" target="_blank">
-                <img src="<?php echo $sRootUri; ?>img/design/header_twitter.png" alt="Miago Arts on Twitter" />
+                <img src="<?php echo $sRootUri; ?>img/design/header_twitter.png?cacheid=<?php echo $sCacheId; ?>" alt="Miago Arts on Twitter" />
             </a>
         </a>
     </h1>

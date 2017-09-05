@@ -29,7 +29,7 @@ function getPokemonsHTML(PDO $oDbh, int $iPage)
     $sHTML = '';
     $iFrom = ($iPage - 1) * 50;
     $sSql = '
-        SELECT p.*, IF(dp.`drawn_date` IS NOT NULL, 1, 0) AS drawn
+        SELECT p.*, IF(dp.`drawn_date` IS NOT NULL, 1, 0) AS drawn, dp.`update_date`
         FROM `pokemon` p
         LEFT JOIN `drawn_pokemon` dp
         ON p.`id` = dp.`id_pokemon`
@@ -52,6 +52,8 @@ function getPokemonsHTML(PDO $oDbh, int $iPage)
         $sVariant = $aPokemons[$i]['variant'] != 'none' ? $aPokemons[$i]['variant'] : null;
         $sHumanVariant = $sVariant != null ? str_replace('-', ' ', $sVariant) : null;
         $sName = $aPokemons[$i]['name'];
+        $sFrenchName = $aPokemons[$i]['name_french'];
+        $iGeneration = $aPokemons[$i]['generation'];
 
         if ($sHumanVariant != null) {
             $sName .= ' ' . $sHumanVariant;
@@ -63,9 +65,11 @@ function getPokemonsHTML(PDO $oDbh, int $iPage)
         $iSpriteIndex = floor(($iPosition - 1) / 50);
         $iSpriteOffset = (($iPosition - 1) % 50) * 200;
 
-        $sHTML .= '<div class="pokemon" title="' . $sName . '" style="';
+        $sHTML .= '<div class="pokemon" data-name-en="' . $sName . '" data-name-fr="' . $sFrenchName . '" title="' . $sName . '" style="';
 
         if ($bDrawn) {
+            $sCacheId = preg_replace('/[^0-9a-zA-Z]+/', '', $aPokemons[$i]['update_date']);
+
             $sHTML .= 'background: none;">';
 
             $sFilePath = 'img/pokemons/drawn/' . $iPosition;
@@ -85,7 +89,15 @@ function getPokemonsHTML(PDO $oDbh, int $iPage)
                 $sThumbExtension = '.png';
             }
 
-            $sHTML .= '<img src="' . $sFilePath . '@thumb' . $sThumbExtension . '" data-jslghtbx="' . $sFilePath . '@2x' . $sHdExtension . '" data-jslghtbx-group="pokemons" data-pokemon-position="' . $iPosition . '" alt="' . $sName . '" />';
+            $aAttributes = array();
+            $aAttributes[] = 'data-jslghtbx="' . $sFilePath . '@2x' . $sHdExtension . '"';
+            $aAttributes[] = 'data-jslghtbx-group="pokemons"';
+            $aAttributes[] = 'data-pokemon-position="' . $iPosition . '"';
+
+            $sHTML .= '<img src="' . $sFilePath . '@thumb' . $sThumbExtension . '?cacheid=' . $sCacheId . '" alt="' . $sName . '" ' . implode(' ', $aAttributes) . ' />';
+            $sHTML .= '<br />';
+            $sHTML .= '<div class="pokemon-name" lang="en"><strong>' . str_pad($iPosition, 3, "0", STR_PAD_LEFT) . '</strong><br /><strong>' . $sName . '</strong><br /><strong>Gen ' . $iGeneration . '</strong></div>';
+            $sHTML .= '<div class="pokemon-name" lang="fr"><strong>' . str_pad($iPosition, 3, "0", STR_PAD_LEFT) . '</strong><br /><strong>' . $sFrenchName . '</strong><br /><strong>Gén ' . $iGeneration . '</strong></div>';
         } else {
             $sHTML .= 'background-image: url(\'img/pokemons/vanilla/' . $iSpriteIndex . '.png\'); background-position: 0 -' . $iSpriteOffset . 'px;">';
         }

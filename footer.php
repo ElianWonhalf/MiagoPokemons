@@ -9,14 +9,14 @@
 
     if ($bAdmin) {
         echo '
-            <script type="text/javascript" src="../js/functions.js"></script>
-            <script type="text/javascript" src="js/main.js"></script>
+            <script type="text/javascript" src="../js/functions.js?cacheid=' . $sCacheId . '"></script>
+            <script type="text/javascript" src="js/main.js?cacheid=' . $sCacheId . '"></script>
         ';
     } else {
         echo '
-            <script type="text/javascript" src="js/lightbox.js"></script>
-            <script type="text/javascript" src="js/functions.js"></script>
-            <script type="text/javascript" src="js/main.js"></script>
+            <script type="text/javascript" src="js/lightbox.js?cacheid=' . $sCacheId . '"></script>
+            <script type="text/javascript" src="js/functions.js?cacheid=' . $sCacheId . '"></script>
+            <script type="text/javascript" src="js/main.js?cacheid=' . $sCacheId . '"></script>
         ';
     }
 

@@ -76,6 +76,35 @@ function send(url, method, parameters, callback, formData) {
     return xhr;
 }
 
+function setCookie(name, value, expirationDays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    var cookiePieces = document.cookie.split(';');
+    var returnValue = null;
+
+    name = name + "=";
+
+    for (var i = 0; returnValue == null && i < cookiePieces.length; i++) {
+        var piece = cookiePieces[i];
+
+        while (piece.charAt(0) == ' ') {
+            piece = piece.substring(1);
+        }
+
+        if (piece.indexOf(name) == 0) {
+            returnValue = piece.substring(name.length, piece.length);
+        }
+    }
+
+    return returnValue;
+}
+
 function getPokemonVariants() {
     return [
         'alola',
