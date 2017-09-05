@@ -73,15 +73,16 @@ function saveData() {
 
         $sSql = '
             INSERT INTO `drawn_pokemon`
-            SELECT `id`, :variant, :drawn_date
+            SELECT `id`, :variant, :drawn_date, :update_date
             FROM `pokemon`
             WHERE `position` = :position
-            ON DUPLICATE KEY UPDATE `drawn_date` = :drawn_date
+            ON DUPLICATE KEY UPDATE `update_date` = :update_date
         ';
         $oSth = $oDbh->prepare($sSql);
         $oSth->execute(array(
             'variant' => $sVariant,
             'drawn_date' => date('Y-m-d'),
+            'update_date' => date('Y-m-d'),
             'position' => $iPosition,
         ));
     }
@@ -104,7 +105,7 @@ function getPokemonByPosition($iPosition, $sVariant) {
     }
 
     $sSql = '
-        SELECT p.`id`, p.`name`, p.`position`, IF(dp.`variant` IS NOT NULL, 1, 0) AS "drawn", dp.`variant`, dp.`drawn_date`, p.`active`
+        SELECT p.`id`, p.`name`, p.`position`, IF(dp.`variant` IS NOT NULL, 1, 0) AS "drawn", dp.`variant`, dp.`drawn_date`, dp.`update_date`, p.`active`
 
         FROM `pokemon` p
 
@@ -138,6 +139,7 @@ function getPokemonByPosition($iPosition, $sVariant) {
                 'position' => (int) $iPosition,
                 'drawn' => $aPokemon['drawn'] == '1',
                 'drawn_date' => $aPokemon['drawn_date'],
+                'update_date' => $aPokemon['update_date'],
                 'active' => $aPokemon['active'] == '1',
             ),
         );

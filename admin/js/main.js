@@ -309,6 +309,7 @@ addListener(document, 'DOMContentLoaded', function (event) {
             var variant = 'n/d';
             var alreadyDrawnBefore = 'no';
             var drawnDate = 'n/d';
+            var updateDate = 'n/d';
 
             if (data.variant) {
                 variant = data.variant;
@@ -326,11 +327,17 @@ addListener(document, 'DOMContentLoaded', function (event) {
                 drawnDate = drawnDate.toLocaleDateString();
             }
 
+            if (data.update_date != null) {
+                updateDate = new Date(data.update_date);
+                updateDate = updateDate.toLocaleDateString();
+            }
+
             paragraph.innerHTML += '<span>Name: </span>' + data.name + '<br />';
             paragraph.innerHTML += '<span>Position: </span>' + data.position + '<br />';
             paragraph.innerHTML += '<span>Variant: </span>' + variant + '<br />';
             paragraph.innerHTML += '<span>Already drawn before: </span>' + alreadyDrawnBefore + '<br />';
             paragraph.innerHTML += '<span>Drawn date: </span>' + drawnDate + '<br />';
+            paragraph.innerHTML += '<span>Last update date: </span>' + updateDate + '<br />';
 
             containerDiv.appendChild(paragraph);
             content.appendChild(containerDiv);
