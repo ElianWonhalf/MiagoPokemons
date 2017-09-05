@@ -80,16 +80,16 @@
             margin: 1px;
             position: absolute;
 
-            @include transition(left 0.25s ease);
+            @include transition(transform 0.25s ease);
         }
     }
 
     #lang-en:checked ~ #lang-switch::before {
-        left: 0;
+        transform: translateX(0);
     }
 
     #lang-fr:checked ~ #lang-switch::before {
-        left: calc(100% - 20px);
+        transform: translateX(100%) translateX(2px);
     }
 
     #pokemons {
@@ -135,6 +135,7 @@
                         letter-spacing: 1px;
                         padding: 7px;
                         line-height: 7px;
+                        zoom: 1.01; // Workaround for IE white line bug
                     }
 
                     &:first-of-type {
@@ -393,6 +394,7 @@
         background: white;
         max-height: 100%;
         max-width: 105px;
+        height: auto;
 
         &.active {
             border: 2px solid $brand-primary;

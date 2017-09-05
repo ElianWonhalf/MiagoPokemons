@@ -82,7 +82,8 @@ addListener(document, 'DOMContentLoaded', function () {
     function documentScrolledHandler() {
         if (!scrollLoading && nextPage * 50 < howManyPokemons) {
             var pokemonsContainerBottom = pokemonsContainer.offsetTop + pokemonsContainer.offsetHeight;
-            var viewportBottom = window.scrollY + window.innerHeight;
+            var scrollY = (typeof window.scrollY != 'undefined') ? window.scrollY : window.pageYOffset;
+            var viewportBottom = scrollY + window.innerHeight;
 
             if (viewportBottom >= pokemonsContainerBottom - 400) {
                 scrollLoading = true;
