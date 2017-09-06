@@ -17,7 +17,7 @@ require_once('functions.php');
 
     $sRootDir = __DIR__;
     $sRootUri = '';
-    $sCacheId = '2.2';
+    $sCacheId = '2.3';
 
     if ($bAdmin) {
         $sRootDir = dirname(__DIR__);

@@ -245,6 +245,16 @@ addListener(document, 'DOMContentLoaded', function () {
                         }
                     }
 
+                    var variantFullName = variant.map(function (e) {
+                        return e.substr(0, 1).toUpperCase() + e.substr(1);
+                    }).join(' ');
+
+                    if (variantFullName.toLowerCase() != 'none') {
+                        lightboxImg.title = variantFullName;
+                    } else {
+                        lightboxImg.title = '';
+                    }
+
                     lightboxImg.style.backgroundImage = backgroundImage;
                     lightboxImg.style.opacity = 1;
                 }, 200);
